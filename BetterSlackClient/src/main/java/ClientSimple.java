@@ -19,12 +19,12 @@ public class ClientSimple {
         output.println("Hello 2 from client");
         output.println("exit");
 
-        Scanner scanner = new Scanner(System.in);
 
         while (true) {
+        Scanner scanner = new Scanner(System.in);
             String newMesage = scanner.nextLine();
-                output.println();
-            if (newMesage.equals("exit")){
+                output.println(newMesage);
+            if (newMesage.equals(EXIT_KEYWORD)){
                 break;
             }
         }

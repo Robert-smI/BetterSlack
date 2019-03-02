@@ -1,4 +1,8 @@
-package PACKAGE_NAME;
+public class ServerThread implements Runnable {
 
-public class ServerThread {
+
+
+    public void run() {
+
+    }
 }
