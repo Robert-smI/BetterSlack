@@ -1,3 +1,5 @@
+package sandbox;
+
 import java.io.IOException;
 
 public class App {

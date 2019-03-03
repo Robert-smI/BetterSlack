@@ -1,3 +1,5 @@
+package sandbox;
+
 public class Thread1 implements Runnable {
 
     private final String name;
