@@ -1,6 +1,6 @@
 package sandbox;
 
-public class Main {
+public class MainThreads {
 
     public static void main(String[] args) {
         Thread thread1 = new Thread(new Thread1("thread"));
