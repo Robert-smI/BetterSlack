@@ -1,8 +1,13 @@
+package users;
+
+import users.User;
+import users.UserRepository;
+
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
 
-public class InMemoryUserDatabase implements UserRepository{
+public class InMemoryUserDatabase implements UserRepository {
 
     static private Set<User> users = new HashSet<>();
 
@@ -15,6 +20,10 @@ public class InMemoryUserDatabase implements UserRepository{
     public Optional<User> find(String username) {
         return users.stream()
         .filter(user -> user.getUsername().equals(username)).findAny();
+    }
+
+    public int getUsersCount() {
+        return users.size();
     }
 
 }

@@ -1,3 +1,5 @@
+package users;
+
 import java.util.Optional;
 
 public class UserServiceImpl implements UserService {
@@ -12,7 +14,7 @@ public class UserServiceImpl implements UserService {
     public void register(String username, String password) {
         Optional<User> foundUser = userRepository.find(username);
         if (foundUser.isPresent()) {
-            throw new IllegalStateException("User with name " + username + " already exist");
+            throw new IllegalStateException("users.User with name " + username + " already exist");
         }
         if (!User.isUsernameValid(username)) {
             throw new IllegalArgumentException("Valid username should have " +
