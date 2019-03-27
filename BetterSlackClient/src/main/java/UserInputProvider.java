@@ -1,4 +1,6 @@
+import commands.ChatCommand;
+
 public interface UserInputProvider {
-    String getUserInput();
+    ChatCommand getUserInput();
 
 }

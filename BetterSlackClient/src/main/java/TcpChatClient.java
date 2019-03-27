@@ -1,3 +1,5 @@
+import commands.Message;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -62,8 +64,16 @@ public class TcpChatClient implements NetworkBasedChatClient {
 
     @Override
     public void sendMessage(String txt) {
+
+
         output.println(txt);
     }
+
+    public void sendMessage2(Message message) {
+        String messeg = message.getContent();
+        output.println(messeg.co);
+    }
+
 
     @Override
     public boolean isOnline() {

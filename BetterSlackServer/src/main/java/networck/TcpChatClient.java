@@ -1,5 +1,7 @@
 package networck;
 
+import networck.settings.ChannelSettings;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -14,10 +16,17 @@ public class TcpChatClient implements ChatClient {
     private PrintWriter output;   // wysyla
     private BufferedReader input;
     private Thread readThread;
+    private String currentChannelName = ChannelSettings.DEFAULT_CHANNEL_NAME;
+    private final ChannelRepository channelRepository;
+
+  //  private final ChannelRepository channelRepository = new InMemoryChannelRepository();
+
+    //private final Channel generalChannel =
+     //       new InMemoryChannelRepository().findByName(ChannelSettings.DEFAULT_CHANNEL_NAME).get();
 
     private final List<DisconnectObserver> disconnectObservers = new ArrayList<>();
 
-    public TcpChatClient(Socket clientSocket) {
+    public TcpChatClient(Socket clientSocket, ChannelRepository channelRepository) {
         this.clientSocket = clientSocket;
         try {
             output = new PrintWriter(clientSocket.getOutputStream(), true);
@@ -25,6 +34,7 @@ public class TcpChatClient implements ChatClient {
         } catch (IOException e) {
             throw new IllegalStateException("Error init client");
         }
+        this.channelRepository = channelRepository;
         startReading();
     }
 
@@ -33,7 +43,7 @@ public class TcpChatClient implements ChatClient {
             while (isOnline()) {
                 readMessage();
             }
-           notifyDisconnected(this);
+            notifyDisconnected(this);
         }
         );
         readThread.start();
@@ -47,18 +57,22 @@ public class TcpChatClient implements ChatClient {
                 return;
             }
             System.out.println(msg);
+            channelRepository.findByName(currentChannelName).ifPresent(channel -> channel.broadcast(this, msg));
+
         } catch (IOException e) {
-            e.printStackTrace();
+            disconnect();
             // TBD
         }
     }
 
     @Override
     public void sendMessage(String message) {
-        if (isOnline()) {
+        if (isOnline() && !message.isEmpty() && message.trim().isEmpty()) {
             output.println(message);
         }
     }
+
+
 
     @Override
     public void disconnect() {
@@ -77,6 +91,21 @@ public class TcpChatClient implements ChatClient {
         return clientSocket != null && !clientSocket.isClosed();
     }
 
+    @Override
+    public void changeCurrentChanel(String changename) {
+        if (!changename.equals(currentChannelName)){
+            channelRepository.findByName(changename)
+                    .orElseThrow(() -> new IllegalStateException("Channel does not exist"));
+            currentChannelName = changename;
+        }
+    }
+
+    @Override
+    public String getCurrentChhannelName() {
+
+        return null;
+    }
+
 
     // DisconnectObservable methods:
     @Override
@@ -91,8 +120,8 @@ public class TcpChatClient implements ChatClient {
 
     @Override
     public void notifyDisconnected(ChatClient chatClient) {
-        for ( DisconnectObserver observer : disconnectObservers
-             ) {
+        for (DisconnectObserver observer : disconnectObservers
+        ) {
             observer.clientDisconnected(chatClient);
         }
     }
