@@ -1,3 +1,4 @@
+import commands.ChatCommand;
 import commands.Message;
 
 import java.io.BufferedReader;
@@ -64,14 +65,12 @@ public class TcpChatClient implements NetworkBasedChatClient {
 
     @Override
     public void sendMessage(String txt) {
-
-
         output.println(txt);
     }
 
-    public void sendMessage2(Message message) {
-        String messeg = message.getContent();
-        output.println(messeg.co);
+    @Override
+    public void sendMessageCommand(Message message) {
+        output.println(message.getContent());
     }
 
 

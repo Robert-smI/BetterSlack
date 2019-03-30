@@ -9,24 +9,32 @@ public class Main {
 
         NetworkBasedChatClient client = new TcpChatClient();
 
-        client.connect("192.168.1.74", 50000);
+        client.connect("localhost", 50000);    //  mz 192.168.1.74
 
         UserInputProvider inputProvider = new ConsoleInputProvider();
 
         while (client.isOnline()){
             try {
                 ChatCommand userInput = inputProvider.getUserInput( );
+               client.sendMessageCommand((Message)userInput);
 
-                client.sendMessage(userInput);
             } catch(EmptyMessageExeption ex) {
                 System.out.println(ex.getMessage());
             }
 
-           ChatCommand inputText = inputProvider.getUserInput( );
-           client.sendMessage(inputText);
+          // ChatCommand inputText = inputProvider.getUserInput( );
+         //  client.sendMessage(inputText);
         }
-        System.out.println("bye bye");
 
+//        while(client.isOnline()) {
+//            String userInput = inputProvider.getUserInputSimple();
+//            client.sendMessage(userInput);
+//        }
+
+
+        client.sendMessage("hej");
+
+        System.out.println("bye bye");
     }
 
 }

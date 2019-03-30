@@ -19,7 +19,7 @@ public class Message {
 
     public Message(String content) {
         this.content = content;
-  //     timestamp = new LocalDateTime.now();
+        timestamp = LocalDateTime.now();
     }
 
     public Message(String content, LocalDateTime timestamp) {

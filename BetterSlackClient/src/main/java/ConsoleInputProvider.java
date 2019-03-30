@@ -14,7 +14,6 @@ public class ConsoleInputProvider implements UserInputProvider {
     private final String username;
     private final ChatCommandFactory chatCommandFactory = new ChatCommandFactory();
 
-
     public ConsoleInputProvider() {
         String tempname;
 
@@ -22,12 +21,14 @@ public class ConsoleInputProvider implements UserInputProvider {
             System.out.println("Enter username: ");
             tempname = scanner.nextLine();
 
-            if (!ifUsernameValid(tempname)) {
+            if (ifUsernameValid(tempname)) {
                 break;
             }
         }
         username = tempname;
+        System.out.println("Your username: " + username);
     }
+
 
     private static boolean ifUsernameValid(String username) {
         return !username.isEmpty() && username.length() > UserSettings.MIN_USERNAME_LENGTH
@@ -58,7 +59,6 @@ public class ConsoleInputProvider implements UserInputProvider {
             return command;
         }
         return Message.createNew(input);
-
     }
 
 
@@ -66,6 +66,11 @@ public class ConsoleInputProvider implements UserInputProvider {
         String trimedInput = input.trim();
         String regex = !trimedInput.contains(" ") ? "^\\/[a-z]+$" : "^\\/[a-z]+\\s+\\S+";
         return trimedInput.matches(regex);
+    }
+
+
+    public String getUserInputSimple (){
+        return String.format("%s: %s", username, scanner.nextLine());
     }
 
 

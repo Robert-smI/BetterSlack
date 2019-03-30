@@ -1,4 +1,4 @@
-package sandbox;
+package serialization;
 
 public class Purchase {
 

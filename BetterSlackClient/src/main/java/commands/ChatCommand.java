@@ -17,4 +17,5 @@ public abstract class ChatCommand {
     public String getSender() {
         return sender;
     }
+
 }
