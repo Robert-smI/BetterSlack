@@ -11,7 +11,6 @@ public class Login extends ChatCommand {
     private String password;
 
 
-
     public String getUsername() {
         return username;
     }

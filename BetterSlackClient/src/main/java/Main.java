@@ -16,23 +16,19 @@ public class Main {
         while (client.isOnline()){
             try {
                 ChatCommand userInput = inputProvider.getUserInput( );
-               client.sendMessageCommand((Message)userInput);
+                Message message = (Message)userInput;
+                client.sendMessageCommand(message);
 
             } catch(EmptyMessageExeption ex) {
                 System.out.println(ex.getMessage());
             }
 
-          // ChatCommand inputText = inputProvider.getUserInput( );
-         //  client.sendMessage(inputText);
         }
 
 //        while(client.isOnline()) {
 //            String userInput = inputProvider.getUserInputSimple();
 //            client.sendMessage(userInput);
 //        }
-
-
-        client.sendMessage("hej");
 
         System.out.println("bye bye");
     }

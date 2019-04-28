@@ -2,6 +2,6 @@ package networck.settings;
 
 public class ChannelSettings {
 
-    public  static final String DEFAULT_CHANNEL_NAME = "General";
+    public static final String DEFAULT_CHANNEL_NAME = "General";
 
 }

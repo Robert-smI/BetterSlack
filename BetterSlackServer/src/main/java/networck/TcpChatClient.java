@@ -13,16 +13,16 @@ import java.util.List;
 public class TcpChatClient implements ChatClient {
 
     private final Socket clientSocket;
-    private PrintWriter output;   // wysyla
+    private PrintWriter output;   // send
     private BufferedReader input;
     private Thread readThread;
     private String currentChannelName = ChannelSettings.DEFAULT_CHANNEL_NAME;
     private final ChannelRepository channelRepository;
 
-  //  private final ChannelRepository channelRepository = new InMemoryChannelRepository();
+     //  private final ChannelRepository channelRepository = new InMemoryChannelRepository();
 
-    //private final Channel generalChannel =
-     //       new InMemoryChannelRepository().findByName(ChannelSettings.DEFAULT_CHANNEL_NAME).get();
+    //  private final Channel generalChannel =
+    //  new InMemoryChannelRepository().findByName(ChannelSettings.DEFAULT_CHANNEL_NAME).get();
 
     private final List<DisconnectObserver> disconnectObservers = new ArrayList<>();
 
@@ -67,11 +67,10 @@ public class TcpChatClient implements ChatClient {
 
     @Override
     public void sendMessage(String message) {
-        if (isOnline() && !message.isEmpty() && message.trim().isEmpty()) {
+        if (isOnline() && !message.isEmpty() && !message.trim().isEmpty()) {
             output.println(message);
         }
     }
-
 
 
     @Override

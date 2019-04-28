@@ -10,7 +10,7 @@ import java.net.Socket;
 public class TcpChatClient implements NetworkBasedChatClient {
 
     private Socket clientSocket;
-    private PrintWriter output;  // wysyla
+    private PrintWriter output;  // send
     private BufferedReader input;
     private Thread readingThread;
 
@@ -50,7 +50,6 @@ public class TcpChatClient implements NetworkBasedChatClient {
         }
     }
 
-
     @Override
     public void disconnect() {
         if (isOnline()) {
@@ -63,6 +62,7 @@ public class TcpChatClient implements NetworkBasedChatClient {
         }
     }
 
+    //  outdated method replaced by sendMessageCommand
     @Override
     public void sendMessage(String txt) {
         output.println(txt);

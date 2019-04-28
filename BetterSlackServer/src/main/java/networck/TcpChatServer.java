@@ -28,7 +28,7 @@ public class TcpChatServer implements ChatServer {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        System.out.println("server is running %d...\\n" + port);
+        System.out.println("server is running id...\n" + port);
         acceptingSocketThread = new Thread(this::startAcceptingClients);
         acceptingSocketThread.start();
     }
@@ -38,7 +38,7 @@ public class TcpChatServer implements ChatServer {
         while (isOnline()) {
             try {
                 Socket clientSocket = serverSocket.accept();
-                ChatClient client = new TcpChatClient(clientSocket);
+                ChatClient client = new TcpChatClient(clientSocket, channelRepository);
                 onlineUsers.add(client);
                 channelRepository.findByName(ChannelSettings.DEFAULT_CHANNEL_NAME)
                 .ifPresent(channel-> channel.join(client));

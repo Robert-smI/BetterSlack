@@ -17,6 +17,7 @@ public class Message extends ChatCommand {
     public static Message load (String content, LocalDateTime timestamp){
         Message message = new Message();
         message.timestamp = timestamp;
+        message.content = content;
         return message;
     }
 
